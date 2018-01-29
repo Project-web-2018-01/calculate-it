@@ -4,6 +4,7 @@ var levelDisplay = 'level ' + (levelNumber - 1);
 levelDisplay = levelDisplay.split(' ');
 var levelNumber = 4;
 
+
 function randomNumberRange(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 }
@@ -12,8 +13,7 @@ var Equation = function(left, right, operator){
     this.left = left;
     this.right = right;
     this.operator = operator;
-    this.equation = left + operator + right;
-    console.log(this);
+    this.equation = eval(left + operator + right);
     console.log(this.equation);
     this.toString = function(){
         if (levelNumber === 2) {

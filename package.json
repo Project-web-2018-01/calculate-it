@@ -1,0 +1,22 @@
+{
+  "name": "kodilla-team",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Project-web-2018-01/calculate-it.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Project-web-2018-01/calculate-it/issues"
+  },
+  "homepage": "https://github.com/Project-web-2018-01/calculate-it#readme",
+  "dependencies": {
+    "expr-eval": "^1.2.1"
+  }
+}
