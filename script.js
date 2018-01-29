@@ -1,8 +1,8 @@
 
 var operators = ['/','*','-','+'];
-var levelDisplay = 'level 5';
+var levelDisplay = 'level ' + (levelNumber - 1);
 levelDisplay = levelDisplay.split(' ');
-var levelNumber = Number(levelDisplay[1]);
+var levelNumber = 4;
 
 function randomNumberRange(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
@@ -12,13 +12,16 @@ var Equation = function(left, right, operator){
     this.left = left;
     this.right = right;
     this.operator = operator;
-    
+    this.equation = left + operator + right;
+    console.log(this);
+    console.log(this.equation);
     this.toString = function(){
-        if (levelNumber == 2) {
+        if (levelNumber === 2) {
             return  left + ' ' + operator + ' ' + right;
         } else {
             return '(' + left + ' ' + operator + ' ' + right + ')';
-        }  
+        } 
+        levelNumber += 1; 
     }
 }
 
