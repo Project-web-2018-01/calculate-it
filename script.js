@@ -13,20 +13,19 @@ var Equation = function(left, right, operator){
     this.left = left;
     this.right = right;
     this.operator = operator;
-    this.equation = eval(left + operator + right);
-    console.log(this.equation);
+    this.expression = eval(left + operator + right);
+    console.log(this.expression);
     this.toString = function(){
         if (levelNumber === 2) {
             return  left + ' ' + operator + ' ' + right;
         } else {
             return '(' + left + ' ' + operator + ' ' + right + ')';
         } 
-        levelNumber += 1; 
     }
 }
 
 function generateEquation(numNodes){
-    if (numNodes === 1) return randomNumberRange(1, 100);
+    if (numNodes === 1) return randomNumberRange(1, 10);
 
     var randomBracket = randomNumberRange(1, 3);
     if (randomBracket === 1){
@@ -44,9 +43,11 @@ function generateEquation(numNodes){
     var randomOperator = randomNumberRange(0, operators.length);
     var sign = operators[randomOperator];
     return new Equation(leftSubTree, rightSubTree, sign);
+    console.log(Equation);
 }
 
 $('#output').text(generateEquation(levelNumber).toString());
 
 
 
+3
