@@ -95,14 +95,14 @@ function startTimer(duration) {
 
 	var operators = ['/', '*', '-', '+'];
 	var levelDisplay = 'level: ' + (levelNumber - 1);
-	var levelNumber = 2;
+	var levelNumber = 5;
 	var sublevel = 1;
 
 	function gameMaster(){
 
 		var equationGenerate = generateEquation(levelNumber);
 		var equationDisplay = $('#output').text(equationGenerate).toString();
-		var equationResult = equationGenerate.getExpression();
+		var equationResult = equationGenerate.getExpression().toFixed(1);
 		console.log(equationResult);
 		inputListener(equationResult);
 
