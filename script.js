@@ -12,15 +12,14 @@ var Equation = function(left, right, operator) {
 	this.left = left;
 	this.right = right;
 	this.operator = operator;
-	this.equation = eval(left + operator + right);
-	console.log(this.equation);
+	this.expression = eval(left + operator + right);
+	this.getExpression = function() { return this.expression; }
 	this.toString = function() {
 		if (levelNumber === 2) {
 			return left + ' ' + operator + ' ' + right;
 		} else {
 			return '(' + left + ' ' + operator + ' ' + right + ')';
 		}
-		levelNumber += 1;
 	}
 
 
@@ -31,7 +30,7 @@ var Equation = function(left, right, operator) {
 		var value = parseInt($("#value").val());
 
 		var keycode = (event.keyCode ? event.keyCode : event.which);
-		if (keycode == '13' && value == self.equation) {
+		if (keycode == '13' && value == self.expression) {
 			console.log('enter working');
 			// alert('u a good at math');
 			$('#output').text(generateEquation(levelNumber).toString());
@@ -46,35 +45,28 @@ var Equation = function(left, right, operator) {
 			$('#points').text(updatedPoints);
 		}
 	});
-
-
-
-
 }
 
 
 function generateEquation(numNodes) {
-	if (numNodes === 1) return randomNumberRange(1, 100);
+	if (numNodes === 1) return randomNumberRange(1, 10);
 
 	var randomBracket = randomNumberRange(1, 3);
-	if (randomBracket === 1) {
-		var numLeft = Math.floor(numNodes / 2);
-		var leftSubTree = generateEquation(numLeft);
-		var numRight = Math.ceil(numNodes / 2);
-		var rightSubTree = generateEquation(numRight);
-	} else {
-		var numLeft = Math.ceil(numNodes / 2);
-		var leftSubTree = generateEquation(numLeft);
-		var numRight = Math.floor(numNodes / 2);
-		var rightSubTree = generateEquation(numRight);
-	}
+
+	var numLeft = randomBracket === 1 ? Math.floor(numNodes / 2) : Math.ceil(numNodes / 2);
+	var leftSubTree = generateEquation(numLeft);
+	var numRight = randomBracket === 1 ? Math.ceil(numNodes / 2) : Math.floor(numNodes / 2);
+	var rightSubTree = generateEquation(numRight);
 
 	var randomOperator = randomNumberRange(0, operators.length);
 	var sign = operators[randomOperator];
 	return new Equation(leftSubTree, rightSubTree, sign);
 }
 
-$('#output').text(generateEquation(levelNumber).toString());
+var equationGenerate = generateEquation(levelNumber);
+var equationDisplay = $('#output').text(equationGenerate).toString();
+var equationResult = equationGenerate.getExpression();
+console.log(equationResult);
 
 
 //TIMER
