@@ -15,6 +15,7 @@ var Equation = function(left, right, operator){
     this.operator = operator;
     this.expression = eval(left + operator + right);
     console.log(this.expression);
+    this.getExpression = function() { return this.expression; }
     this.toString = function(){
         if (levelNumber === 2) {
             return  left + ' ' + operator + ' ' + right;
@@ -46,8 +47,7 @@ function generateEquation(numNodes){
     console.log(Equation);
 }
 
-$('#output').text(generateEquation(levelNumber).toString());
-
-
-
-3
+var equationGenerate = generateEquation(levelNumber);
+var equationDisplay = $('#output').text(costame).toString();
+var equationResult = equationGenerate.getExpression();
+console.log(equationResult + "xxxx");
