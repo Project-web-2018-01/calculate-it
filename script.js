@@ -1,8 +1,8 @@
+(function(){
 
 var operators = ['/', '*', '-', '+'];
-var levelNumber = 2;
-var levelDisplay = 'level: ' + (levelNumber - 1);
-var sublevel = 1;
+var levelNumber;
+var sublevel;
 var countDown;
 
 function randomNumberRange(min, max) {
@@ -22,7 +22,6 @@ var Equation = function(left, right, operator) {
 			return '(' + left + ' ' + operator + ' ' + right + ')';
 		}
 	}
-	console.log('Equation');	
 }
 
 //GETTING THE VALUE, COMPARING, INCREASING LEVEL
@@ -37,7 +36,6 @@ function inputListener(equationResult){
 			// alert('u a good at math');
 			$("#value").val('');
 			levelCounter();	
-			console.log('inputListener');	
 		}
 	});
 }
@@ -48,10 +46,14 @@ function levelCounter(){
 		levelNumber ++;
 		sublevel = 1;
 	} 
-	console.log('level number: ' + levelNumber);
-	console.log('sublevel: ' + sublevel);
-	console.log('levelCounter');
 	pointsResume();	
+}
+
+function levelsDisplaying(){
+	var levelDisplay = 'level: ' + (levelNumber - 1);
+	$('#level').text(levelDisplay).toString();
+	var sublevelDisplay = 'sublevel: ' + sublevel;
+	$('#sublevel').text(sublevelDisplay).toString();
 }
 
 //ADDING POINTS
@@ -61,13 +63,12 @@ function pointsResume(){
 	var points = parseInt($('#points').text());
 	points += 1;
 	$('#points').text(points);
-	console.log('pointsResume');
-	newGame();
+	gameMaster();
 }
 
 function generateEquation(numNodes) {
 	if (numNodes === 1) return randomNumberRange(1, 10);
-
+	
 	var randomBrackets = randomNumberRange(1, 3);
 	var numLeft = randomBrackets === 1 ? Math.floor(numNodes / 2) : Math.ceil(numNodes / 2);
 	var leftSubTree = generateEquation(numLeft);
@@ -95,6 +96,8 @@ function startTimer(duration) {
 		seconds = seconds < 10 ? "0" + seconds : seconds;
 
 		$('#time').text(minutes + ":" + seconds);
+		$('#time-value').text(' minutes');
+		if(minutes < 1) $('#time-value').text(' seconds');
 
 		if (--duration < -1) {
 			clearInterval(countDown);
@@ -103,7 +106,6 @@ function startTimer(duration) {
 			alert('Time is up');
 			}
 	}, 1000);
-	console.log('Timer');
 }
 
 function stopTimer(){
@@ -111,21 +113,25 @@ function stopTimer(){
 }
 
 function gameMaster(){
-	
+	levelsDisplaying();
+
 	var equationGenerate = generateEquation(levelNumber);
 	var equationDisplay = $('#output').text(equationGenerate).toString();
-	$('#level').text(levelDisplay).toString();
-	var equationResult = equationGenerate.getExpression().toFixed(1);
+	var equationResult = equationGenerate.getExpression().toFixed(1);	
+	
 	console.log(equationResult);
+	inputListener(equationResult);	
 
-	inputListener(equationResult);		
+	stopTimer();
+	var timeToStop = 60;
+	startTimer(timeToStop);		
 	}
 
 function newGame(){	
-	gameMaster();
-	stopTimer();
-	var timeToStop = 60;
-	startTimer(timeToStop);	
+	levelNumber = 2;
+	sublevel = 1;
+	gameMaster();	
 }
 newGame();
 
+})()
