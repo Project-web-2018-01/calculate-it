@@ -29,7 +29,6 @@ var Equation = function(left, right, operator) {
 function inputListener(equationResult){
 	$('#value').keypress(function(event) {
 		var value = parseFloat($("#value").val());
-
 		var keycode = (event.keyCode ? event.keyCode : event.which);
 		if (keycode == '13' && value == equationResult) {
 			console.log('enter works');
@@ -114,16 +113,17 @@ function stopTimer(){
 
 function gameMaster(){
 	levelsDisplaying();
-
+	
 	var equationGenerate = generateEquation(levelNumber);
 	var equationDisplay = $('#output').text(equationGenerate).toString();
 	var equationResult = equationGenerate.getExpression().toFixed(1);	
 	
+	$("#value").off();
 	console.log(equationResult);
-	inputListener(equationResult);	
+	inputListener(equationResult);
 
 	stopTimer();
-	var timeToStop = 60;
+	var timeToStop = 8;
 	startTimer(timeToStop);		
 	}
 
